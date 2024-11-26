@@ -57,3 +57,27 @@ class Photos(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+class Prices(models.Model):
+    """Price for each photo size."""
+    photo = models.ForeignKey(Photos,
+                              on_delete=models.CASCADE,
+                              related_name='photo_price')
+    size = models.CharField(max_length=15)
+    price = models.DecimalField(decimal_places=2, max_digits=10)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.size + ' of ' + self.photo.title + 'is $' + str(self.price)
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photos, on_delete=models.CASCADE)
+    price = models.ForeignKey(Prices, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id) + str(self.quantity)

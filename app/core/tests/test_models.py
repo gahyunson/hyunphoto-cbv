@@ -63,3 +63,40 @@ class ModelTests(TestCase):
             image=image
         )
         self.assertEqual(str(photos), title)
+
+    def test_price_create_successful(self):
+        """Test creating a price is successful."""
+        photo = models.Photos.objects.create(
+            title='The night',
+            description='The night we used to rock.',
+            image=tempfile.NamedTemporaryFile(suffix=".jpg").name
+        )
+        size = '20x16"'
+        price = 88.0
+        prices = models.Prices.objects.create(photo=photo,
+                                              size=size,
+                                              price=price)
+        self.assertEqual(prices.price, 88.0)
+
+    def test_cart_create_successful(self):
+        """Test creating a cart is successful."""
+        photo = models.Photos.objects.create(
+            title='The night',
+            description='The night we used to rock.',
+            image=tempfile.NamedTemporaryFile(suffix=".jpg").name
+        )
+        size = '20x16"'
+        price = 88.0
+        prices = models.Prices.objects.create(photo=photo,
+                                              size=size,
+                                              price=price)
+        user = create_user()
+        cart = models.Cart.objects.create(
+            user=user,
+            photo=photo,
+            price=prices,
+            quantity=1
+        )
+        self.assertEqual(cart.user, user)
+        self.assertEqual(cart.photo, photo)
+        self.assertEqual(cart.price.price, prices.price)
