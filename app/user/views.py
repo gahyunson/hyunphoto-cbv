@@ -3,7 +3,6 @@ from rest_framework import (
     authentication,
 )
 from rest_framework.permissions import (
-    IsAdminUser,
     IsAuthenticated,
     AllowAny,
 )
