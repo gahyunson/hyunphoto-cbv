@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/', include('user.urls')),
     path('api/photos/', include('photos.urls')),
+    path('api/cart/', include('cart.urls')),
 ]
 
 if settings.DEBUG:

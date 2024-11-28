@@ -43,7 +43,8 @@ INSTALLED_APPS = [
 
     'core',
     'user',
-    # 'photos',
+    'photos',
+    'cart',
 ]
 
 MIDDLEWARE = [

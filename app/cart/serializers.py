@@ -1,0 +1,10 @@
+from rest_framework import serializers
+
+from core.models import Cart
+
+
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
+        fields = ['user', 'photo', 'price', 'quantity']
+
