@@ -24,8 +24,8 @@ class PublicUserApiTests(TestCase):
         """Test creating/signup a user is successful."""
         payload = {
             'email': 'test@example.com',
-            'password': 'testpass1234',
             'name': 'Test Name',
+            'password': 'testpass1234',
         }
         res = self.client.post(SIGNUP_USER_URL, payload)
 
@@ -38,8 +38,8 @@ class PublicUserApiTests(TestCase):
         """Test signup a user is fail, email already exists."""
         payload = {
             'email': 'test@example.com',
-            'password': 'testpass1234',
             'name': 'Test Name',
+            'password': 'testpass1234',
         }
         create_user(**payload)
         res = self.client.post(SIGNUP_USER_URL, payload)
@@ -50,8 +50,8 @@ class PublicUserApiTests(TestCase):
         """Test signup a user is fail, password is too short."""
         payload = {
             'email': 'test@example.com',
-            'password': '123',
             'name': 'Test Name',
+            'password': '123',
         }
         res = self.client.post(SIGNUP_USER_URL, payload)
 
@@ -61,8 +61,8 @@ class PublicUserApiTests(TestCase):
         """Test generates token for valid credentials."""
         user_details = {
             'email': 'test@example.com',
-            'password': 'testpass1234',
             'name': 'Test Name',
+            'password': 'testpass1234',
         }
         create_user(**user_details)
 

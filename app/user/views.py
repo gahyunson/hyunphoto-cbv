@@ -3,13 +3,12 @@ from django.utils.translation import ugettext
 from django.contrib.auth import get_user_model
 from rest_framework import (
     generics,
-    status,
     authentication,
-    mixins,
 )
 from rest_framework.permissions import (
     IsAdminUser,
     IsAuthenticated,
+    AllowAny,
 )
 from rest_framework.response import Response
 
@@ -22,10 +21,9 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 
 
-
-
-class CreateUserView(generics.ListCreateAPIView):
+class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
+    permission_classes = [AllowAny]
 
 
 class CreateTokenView(ObtainAuthToken):
@@ -43,8 +41,8 @@ class CreateTokenView(ObtainAuthToken):
 
 class ManageUserView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
-    authentication_classes = [authentication.TokenAuthentication,]
-    permission_classes = [IsAuthenticated,]
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         return self.request.user
