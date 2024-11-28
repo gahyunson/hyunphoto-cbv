@@ -1,6 +1,3 @@
-from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext
-from django.contrib.auth import get_user_model
 from rest_framework import (
     generics,
     authentication,
@@ -10,13 +7,11 @@ from rest_framework.permissions import (
     IsAuthenticated,
     AllowAny,
 )
-from rest_framework.response import Response
 
 from .serializers import (
     UserSerializer,
     AuthTokenSerializer,
 )
-from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 

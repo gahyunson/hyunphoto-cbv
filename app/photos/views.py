@@ -3,7 +3,6 @@ from rest_framework import generics
 from .serializers import (
     PhotoSerializer,
     PhotoDetailSerializer,
-    PriceSerializer,
 )
 from core.models import (
     Photos
