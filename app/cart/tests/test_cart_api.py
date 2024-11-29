@@ -88,3 +88,48 @@ class PrivateCartApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), len(serializer.data))
+
+    def test_cart_list_fail_unauthenticate(self):
+        """Failed to GET the cart list unauthenticated. """
+        self.client.force_authenticate(user=None)
+        res = self.client.get(CART_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_create_cart_success(self):
+        """Successfully add my cart photo."""
+        photo = create_photos()
+        price = create_prices(photo)
+        payload = {'user': self.user.id, 'photo': photo.id, 'price': price.id}
+
+        res = self.client.post(CART_URL, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+
+    def test_cart_quantity_partial_success(self):
+        """Successfully modified the quantity of each photo of cart."""
+        photo1 = create_photos()
+        price = create_prices(photo1)
+        cart1 = create_cart(self.user, photo1, price)
+
+        payload = {'cart_id': cart1.id, 'quantity': 3}
+
+        res = self.client.patch(CART_URL, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        cart1.refresh_from_db()
+        self.assertEqual(cart1.user, self.user)
+        self.assertEqual(payload['quantity'], res.data['quantity'])
+
+    def test_delete_cart_success(self):
+        """Successfully delete a cart."""
+        photo = create_photos()
+        price = create_prices(photo)
+        cart = create_cart(self.user, photo, price)
+
+        payload = {'cart_id': cart.id}
+
+        res = self.client.delete(CART_URL, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(res.data)
