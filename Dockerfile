@@ -2,7 +2,6 @@ FROM python:3.9-alpine3.13
 LABEL maintainer="hyunphoto.com"
 
 ENV PYTHONUNBUFFERED 1
-
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./app /app
@@ -34,7 +33,6 @@ RUN python -m venv /py && \
     mkdir -p /vol/web/static && \
     chown -R django-user:django-user /vol && \
     chmod -R 755 /vol
-
 ENV PATH="/py/bin:$PATH"
 
 USER django-user
