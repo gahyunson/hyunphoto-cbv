@@ -9,6 +9,7 @@ from core.models import (
     Photos
 )
 
+
 class PhotoView(generics.ListAPIView):
     queryset = Photos.objects.all()
     serializer_class = PhotoSerializer
