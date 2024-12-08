@@ -7,12 +7,13 @@ from core import models
 
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
-    list_display = ['email', 'name']
+    list_display = ['email', 'name', 'is_active']
+    # list_editable = ('is_active',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Permissions'), {
             'fields': (
-             'is_avtivate',
+             'is_active',
              'is_staff',
              'is_superuser',
             )
@@ -37,7 +38,7 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
-admin.site.register(models.User)
+admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Photos)
 admin.site.register(models.Prices)
 admin.site.register(models.Cart)
