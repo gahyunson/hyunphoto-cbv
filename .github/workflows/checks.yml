@@ -23,9 +23,9 @@ jobs:
       - name: Lint
         run: docker compose run --rm app sh -c "flake8"
 
-      - name: Check EC2 Status
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+      # - name: Check EC2 Status
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.TEST_AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.TEST_AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
