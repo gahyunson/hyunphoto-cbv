@@ -1,5 +1,6 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from .serializers import (
     PhotoSerializer,
@@ -10,13 +11,19 @@ from core.models import (
 )
 
 
-class PhotoView(generics.ListAPIView):
+class PhotoView(generics.ListCreateAPIView):
     queryset = Photos.objects.all()
     serializer_class = PhotoSerializer
     permission_classes = [AllowAny]
 
+    def post(self, request, *args, **kwargs):
+        title = request.data.get('title')
+        if Photos.objects.filter(title=title):
+            return Response({'message': 'Already exist'}, status.HTTP_400_BAD_REQUEST)
+        return super().post(request, *args, **kwargs)
 
-class PhotoDetailView(generics.ListAPIView):
+
+class PhotoDetailView(generics.ListCreateAPIView):
     serializer_class = PhotoDetailSerializer
     permission_classes = [AllowAny]
 
