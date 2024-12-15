@@ -1,6 +1,6 @@
 {% load i18n %}
 
-{% if app_list %}
+
 <div class="module">
     <table>
         <caption>
@@ -9,8 +9,8 @@
         <thead>
             <tr>
                 <th scope="col">{% translate 'Create API List' %}</th>
-                <th scope="col">.</th>
-                <th scope="col">.</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -18,12 +18,13 @@
                 <th scope="row">
                     <a href="{% url 'api-docs' %}">Custom Admin View</a>
                 </th>
-                <th scope="row"><a>.</a></th>
-                <th scope="row"><a>.</a></th>
+                <th scope="row"><a></a></th>
+                <th scope="row"><a></a></th>
             </tr>
         </tbody>
     </table>
   </div>
+  {% if app_list %}
   {% for app in app_list %}
     <div class="app-{{ app.app_label }} module{% if app.app_url in request.path|urlencode %} current-app{% endif %}">
       <table>
